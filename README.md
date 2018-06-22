@@ -19,7 +19,8 @@ any bugs you (or feature requests) to the Github issues page.
 
 ### Todo
 *In no particular order*
-- [ ] Fix format on save
+- [ ] Fix code formatting
+- [ ] Find a (clean) way to install specific versions of the langserver
 
 ## License
 MIT License. See [LICENSE](./LICENSE) for more information.
