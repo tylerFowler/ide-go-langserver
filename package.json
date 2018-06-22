@@ -1,0 +1,119 @@
+{
+  "name": "ide-go-langserver",
+  "main": "./build/main",
+  "version": "0.0.0",
+  "description": "Golang language support for Atom-IDE via go-langserver",
+  "author": "Tyler Fowler",
+  "keywords": [
+    "go",
+    "golang",
+    "atom-ide",
+    "go-langserver",
+    "lsp",
+    "language-server-protocol"
+  ],
+  "repository": "https://github.com/tylerfowler/ide-go-langserver",
+  "homepage": "https://github.com/tylerfowler/ide-go-langserver",
+  "bugs": {
+    "url": "https://github.com/tylerfowler/ide-go-langserver/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "configSchema": {
+    "goPath": {
+      "order": 10,
+      "type": "string",
+      "default": "",
+      "description": "Absolute path to use as the `GOPATH`, if not given the package will attempt to load it from Atom's known environment variables. This package will fail to load if this cannot be set."
+    },
+    "goCommand": {
+      "order": 20,
+      "type": "string",
+      "default": "",
+      "description": "The binary to use when invoking Go, if not set then `which go` will be run to find the binary. Requires restart."
+    },
+    "goRoot": {
+      "order": 30,
+      "type": "string",
+      "default": "",
+      "description": "Absolute path to use as the `GOROOT`, if not given the package will attempt to load it from Atom's known environment variables"
+    }
+  },
+  "atomTranspilers": [
+    {
+      "transpiler": "atom-ts-transpiler",
+      "glob": "{!(node_modules)/**/,}*.ts?(x)",
+      "options": {
+        "verbose": false
+      }
+    }
+  ],
+  "dependencies": {
+    "@types/atom": "^1.27.0",
+    "@types/electron": "^1.6.10",
+    "@types/node": "^8.0.41",
+    "atom-languageclient": "^0.9.5",
+    "atom-ts-transpiler": "^1.5.2",
+    "tslib": "^1.9.2",
+    "typescript": "^2.9.2"
+  },
+  "enhancedScopes": [
+    "source.go", "go"
+  ],
+  "consumedServices": {
+    "linter-indie": {
+      "versions": {
+        "2.0.0": "consumeLinterV2"
+      }
+    },
+    "atom-ide-busy-signal": {
+      "versions": {
+        "0.1.0": "consumeBusySignal"
+      }
+    },
+    "console": {
+      "versions": {
+        "0.1.0": "consumeConsole"
+      }
+    },
+    "datatip": {
+      "versions": {
+        "0.1.0": "consumeDatatip"
+      }
+    }
+  },
+  "providedServices": {
+    "autocomplete.provider": {
+      "versions": {
+        "2.0.0": "provideAutocomplete"
+      }
+    },
+    "code-format.range": {
+      "versions": {
+        "0.1.0": "provideCodeFormat"
+      }
+    },
+    "code-highlight": {
+      "versions": {
+        "0.1.0": "provideCodeHighlight"
+      }
+    },
+    "definitions": {
+      "versions": {
+        "0.1.0": "provideDefinitions"
+      }
+    },
+    "find-references": {
+      "versions": {
+        "0.1.0": "provideFindReferences"
+      }
+    },
+    "outline-view": {
+      "versions": {
+        "0.1.0": "provideOutlines"
+      }
+    }
+  }
+}

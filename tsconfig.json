@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": [ "es7", "dom" ],
+    "jsx": "preserve",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "outDir": "./build",
+    "removeComments": true,
+    "importHelpers": true,
+    "downlevelIteration": true,
+
+    "strict": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "typeRoots": [ "./types" ],
+    "types": [
+      "atom-languageclient"
+    ],
+    "esModuleInterop": true
+  },
+  "include": [
+    "lib/*",
+    "lib/**/*"
+  ],
+  "exclude": [
+    "spec/**"
+  ]
+}
