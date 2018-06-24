@@ -79,11 +79,16 @@ export class GoLanguageClient extends AutoLanguageClient {
 
   isGoInstalled(): Promise<boolean> {
     return this.queryGoVersion()
-      .then(version => !!version)
+      .then(version => {
+        // TODO until we can figure out why this fails sometimes
+        console.log('Checked go version, got back', version);
+        return !!version
+      })
       .catch(error => {
+        console.log('Checking go version produced error:', error);
         if (error.code && error.code === 'ENOENT') 
           return Promise.resolve(false);
-        
+
         return Promise.reject(error);
       });
   }
