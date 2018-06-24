@@ -57,10 +57,12 @@
     "atom-languageclient": "^0.9.5",
     "atom-ts-transpiler": "^1.5.2",
     "tslib": "^1.9.2",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "vscode-languageserver-protocol": "^3.8.1"
   },
   "enhancedScopes": [
-    "source.go", "go"
+    "source.go",
+    "go"
   ],
   "consumedServices": {
     "linter-indie": {
@@ -93,6 +95,11 @@
     "code-format.range": {
       "versions": {
         "0.1.0": "provideCodeFormat"
+      }
+    },
+    "code-format.file": {
+      "versions": {
+        "0.1.0": "provideFileCodeFormat"
       }
     },
     "code-highlight": {

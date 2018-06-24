@@ -1,8 +1,11 @@
 import ChildProcess from 'child_process';
 import Path from 'path';
-import { AutoLanguageClient, LanguageServerProcess } from 'atom-languageclient';
-import { Notifier, AtomNotifier } from './atom-notifier';
+import { AutoLanguageClient, LanguageServerProcess, LanguageClientConnection } from 'atom-languageclient';
 import { BusyMessage } from 'atom-ide';
+import { Notifier, AtomNotifier } from './atom-notifier';
+import { TextEditor, Range } from 'atom';
+import GoServerFileFormatProvider from './providers/goServerFileFormatProvider';
+import { FileCodeFormatResponse } from './providers/fileFormatter';
 
 export class GoCommandError extends Error {
   public exitCode: number|undefined;
@@ -173,6 +176,18 @@ export class GoLanguageClient extends AutoLanguageClient {
     if (shouldDispose && this.startupStatus) {
       this.startupStatus.dispose();
       this.startupStatus = undefined;
+    }
+  }
+
+  provideFileCodeFormat() {
+    const fileProvider = new GoServerFileFormatProvider();
+    return {
+      priority: 1,
+      grammarScopes: this.getGrammarScopes(),
+      formatEntireFile: (editor: TextEditor): Promise<FileCodeFormatResponse> => {
+        return this.getConnectionForEditor(editor)
+          .then(conn => fileProvider.format(editor, conn));
+      }
     }
   }
 
