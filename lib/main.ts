@@ -2,7 +2,7 @@ import ChildProcess from 'child_process';
 import Path from 'path';
 import { AutoLanguageClient, LanguageServerProcess, LanguageClientConnection } from 'atom-languageclient';
 import { BusyMessage } from 'atom-ide';
-import { Notifier, AtomNotifier } from './atom-notifier';
+import { Notifier, AtomNotifier } from './atomNotifier';
 import { TextEditor, Range } from 'atom';
 import GoServerFileFormatProvider from './providers/goServerFileFormatProvider';
 import { FileCodeFormatResponse } from './providers/fileFormatter';
