@@ -180,13 +180,13 @@ export class GoLanguageClient extends AutoLanguageClient {
   }
 
   provideFileCodeFormat() {
-    const fileProvider = new GoServerFileFormatProvider();
+    const formatter = new GoServerFileFormatProvider();
     return {
       priority: 1,
       grammarScopes: this.getGrammarScopes(),
       formatEntireFile: (editor: TextEditor): Promise<FileCodeFormatResponse> => {
         return this.getConnectionForEditor(editor)
-          .then(conn => fileProvider.format(editor, conn));
+          .then(conn => formatter.format(editor, conn));
       }
     }
   }
