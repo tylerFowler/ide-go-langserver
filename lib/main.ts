@@ -1,11 +1,15 @@
-import ChildProcess from 'child_process';
 import Path from 'path';
-import { AutoLanguageClient, LanguageServerProcess, LanguageClientConnection } from 'atom-languageclient';
+import ChildProcess from 'child_process';
 import { BusyMessage } from 'atom-ide';
-import { Notifier, AtomNotifier } from './atomNotifier';
 import { TextEditor, Range } from 'atom';
+import { Notifier, AtomNotifier } from './atomNotifier';
 import GoServerFileFormatProvider from './providers/goServerFileFormatProvider';
 import { FileCodeFormatResponse } from './providers/fileFormatter';
+import {
+  AutoLanguageClient,
+  LanguageServerProcess,
+  LanguageClientConnection
+} from 'atom-languageclient';
 
 export class GoCommandError extends Error {
   public exitCode: number|undefined;
@@ -89,7 +93,7 @@ export class GoLanguageClient extends AutoLanguageClient {
       })
       .catch(error => {
         console.log('Checking go version produced error:', error);
-        if (error.code && error.code === 'ENOENT') 
+        if (error.code && error.code === 'ENOENT')
           return Promise.resolve(false);
 
         return Promise.reject(error);
@@ -136,7 +140,7 @@ export class GoLanguageClient extends AutoLanguageClient {
         let cmdOutput = '';
         if (proc.stdout)
           proc.stdout.on('data', chunk => cmdOutput += chunk.toString());
-        
+
         if (proc.stderr)
           proc.stderr.on('data', chunk => cmdOutput += chunk.toString());
 
@@ -169,7 +173,7 @@ export class GoLanguageClient extends AutoLanguageClient {
           // @ts-ignore revealTooltip isn't added to the type file from Atom yet
           revealTooltip: true
         });
-      
+
       this.startupStatus.setTitle(status);
     }
 
