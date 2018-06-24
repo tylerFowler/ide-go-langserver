@@ -13,12 +13,15 @@ the latest features of the Atom IDE.
 This package requires the [atom-ide-ui](https://atom.io/packages/atom-ide-ui)
 package to be installed to expose the functionality within Atom.
 
+The language server will be installed on first startup and updated if an update is available.
+
 ## Features
 - Auto Completion
 - Document outline
 - Go to definition
 - Hover
 - Find references
+- Code formatting
 
 ## Early Access
 This package is still in the early stages of development, be sure to post
@@ -26,9 +29,9 @@ any bugs you (or feature requests) to the Github issues page.
 
 ### Todo
 *In no particular order*
-- [ ] Fix code formatting
 - [ ] Find a (clean) way to install specific versions of the langserver
 - [ ] Add a way to run tests, sending the output to the console
+- [ ] Add a logger, use the IDE console
 - [ ] Integrate Delve for debugging
 
 ## License
