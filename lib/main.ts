@@ -22,7 +22,8 @@ export class GoLanguageClient extends AutoLanguageClient {
   private notifier: Notifier;
   private hasUpdatedServer: boolean = false;
 
-  getGrammarScopes() { return [ 'source.go', 'go' ]; }
+  static get grammarScopes() { return [ 'source.go', 'go' ]; }
+  getGrammarScopes() { return GoLanguageClient.grammarScopes; }
   getLanguageName() { return 'Go'; }
   getServerName() { return 'SourceGraph'; }
 
@@ -39,7 +40,7 @@ export class GoLanguageClient extends AutoLanguageClient {
       .then(() => {
         if (!this.goCommand)
           return Promise.reject(`No valid Go installation found, aborting...`);
-        
+
         return this.isGoInstalled();
       })
       .then(isInstalled => {
