@@ -5,7 +5,6 @@
   "description": "Golang language support for Atom-IDE via go-langserver",
   "author": "Tyler Fowler",
   "scripts": {
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"allowJs\": true}' npx ts-node node_modules/tape/bin/tape lib/*.spec.js lib/**/*.spec.js",
     "build": "npx tsc",
     "watch": "npx tsc -w"
   },

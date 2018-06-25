@@ -33,9 +33,7 @@ any bugs you (or feature requests) to the Github issues page.
 - [ ] Add a way to run tests, sending the output to the console
 - [ ] Add a logger, use the IDE console
 - [ ] Integrate Delve for debugging
-
-## Building
-Running `npm install` and `npm run build` should work. Note that the tests are writtin in plain JS using tape, this is mainly because the Atom project does not export it's internal types like TextEditor or TextBuffer so mocking would be overly difficult. Once a better is solution is found the tests can be turned back into TypeScript, but for now the test runner (tape with ts-node) will also accept JS files.
+- [ ] Create custom task runner to use ts-node & tape
 
 ## License
 MIT License. See [LICENSE](./LICENSE) for more information.
