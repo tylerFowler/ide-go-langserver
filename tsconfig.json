@@ -33,9 +33,10 @@
   },
   "include": [
     "lib/*",
-    "lib/**/*"
+    "lib/**/*",
   ],
   "exclude": [
-    "spec/**"
+    "lib/*.spec.ts", "lib/*.spec.js",
+    "lib/**/*.spec.ts", "lib/**/*.spec.js"
   ]
 }

@@ -1,8 +1,15 @@
-import ChildProcess from 'child_process';
 import Path from 'path';
-import { AutoLanguageClient, LanguageServerProcess } from 'atom-languageclient';
-import { Notifier, AtomNotifier } from './atom-notifier';
+import ChildProcess from 'child_process';
 import { BusyMessage } from 'atom-ide';
+import { TextEditor, Range } from 'atom';
+import { Notifier, AtomNotifier } from './atomNotifier';
+import GoServerFileFormatProvider from './providers/goServerFileFormatProvider';
+import { FileCodeFormatResponse } from './providers/fileFormatter';
+import {
+  AutoLanguageClient,
+  LanguageServerProcess,
+  LanguageClientConnection
+} from 'atom-languageclient';
 
 export class GoCommandError extends Error {
   public exitCode: number|undefined;
@@ -22,7 +29,8 @@ export class GoLanguageClient extends AutoLanguageClient {
   private notifier: Notifier;
   private hasUpdatedServer: boolean = false;
 
-  getGrammarScopes() { return [ 'source.go', 'go' ]; }
+  static get grammarScopes() { return [ 'source.go', 'go' ]; }
+  getGrammarScopes() { return GoLanguageClient.grammarScopes; }
   getLanguageName() { return 'Go'; }
   getServerName() { return 'SourceGraph'; }
 
@@ -39,7 +47,7 @@ export class GoLanguageClient extends AutoLanguageClient {
       .then(() => {
         if (!this.goCommand)
           return Promise.reject(`No valid Go installation found, aborting...`);
-        
+
         return this.isGoInstalled();
       })
       .then(isInstalled => {
@@ -78,11 +86,16 @@ export class GoLanguageClient extends AutoLanguageClient {
 
   isGoInstalled(): Promise<boolean> {
     return this.queryGoVersion()
-      .then(version => !!version)
+      .then(version => {
+        // TODO until we can figure out why this fails sometimes
+        console.log('Checked go version, got back', version);
+        return !!version
+      })
       .catch(error => {
-        if (error.code && error.code === 'ENOENT') 
+        console.log('Checking go version produced error:', error);
+        if (error.code && error.code === 'ENOENT')
           return Promise.resolve(false);
-        
+
         return Promise.reject(error);
       });
   }
@@ -127,7 +140,7 @@ export class GoLanguageClient extends AutoLanguageClient {
         let cmdOutput = '';
         if (proc.stdout)
           proc.stdout.on('data', chunk => cmdOutput += chunk.toString());
-        
+
         if (proc.stderr)
           proc.stderr.on('data', chunk => cmdOutput += chunk.toString());
 
@@ -160,13 +173,25 @@ export class GoLanguageClient extends AutoLanguageClient {
           // @ts-ignore revealTooltip isn't added to the type file from Atom yet
           revealTooltip: true
         });
-      
+
       this.startupStatus.setTitle(status);
     }
 
     if (shouldDispose && this.startupStatus) {
       this.startupStatus.dispose();
       this.startupStatus = undefined;
+    }
+  }
+
+  provideFileCodeFormat() {
+    const formatter = new GoServerFileFormatProvider();
+    return {
+      priority: 1,
+      grammarScopes: this.getGrammarScopes(),
+      formatEntireFile: (editor: TextEditor): Promise<FileCodeFormatResponse> => {
+        return this.getConnectionForEditor(editor)
+          .then(conn => formatter.format(editor, conn));
+      }
     }
   }
 
