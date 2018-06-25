@@ -34,6 +34,8 @@ any bugs you (or feature requests) to the Github issues page.
 - [ ] Add a logger, use the IDE console
 - [ ] Integrate Delve for debugging
 - [ ] Create custom task runner to use ts-node & tape
+- [ ] Figure out why local var/keyword completion doesn't work (has something to do with language server?)
+- [ ] Make go install path check work with Windows
 
 ## License
 MIT License. See [LICENSE](./LICENSE) for more information.

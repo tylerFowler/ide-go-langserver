@@ -88,11 +88,11 @@ export class GoLanguageClient extends AutoLanguageClient {
     return this.queryGoVersion()
       .then(version => {
         // TODO until we can figure out why this fails sometimes
-        console.log('Checked go version, got back', version);
+        console.debug('Checked go version, got back', version);
         return !!version
       })
       .catch(error => {
-        console.log('Checking go version produced error:', error);
+        console.debug('Checking go version produced error:', error);
         if (error.code && error.code === 'ENOENT')
           return Promise.resolve(false);
 
@@ -201,6 +201,7 @@ export class GoLanguageClient extends AutoLanguageClient {
     if (!this._goCommand && fromConfig) {
       this._goCommand = fromConfig;
     } else if (!this._goCommand) {
+      // TODO add platform specific commands
       const cp = ChildProcess.spawnSync('which', [ 'go' ], { env: { PATH: process.env['PATH'] }});
 
       if (cp.status > 0) {
