@@ -57,17 +57,17 @@
   "dependencies": {
     "@types/atom": "^1.28.0",
     "@types/electron": "^1.6.10",
-    "@types/node": "^8.0.41",
-    "atom-languageclient": "^0.9.5",
+    "@types/node": "^8.10.28",
+    "atom-languageclient": "^0.9.6",
     "atom-ts-transpiler": "^1.5.2",
     "tslib": "^1.9.3",
     "typescript": "^2.9.2",
-    "vscode-languageserver-protocol": "^3.8.1"
+    "vscode-languageserver-protocol": "^3.12.0"
   },
   "devDependencies": {
     "@types/tape": "^4.2.32",
     "tape": "^4.9.1",
-    "ts-node": "^7.0.0"
+    "ts-node": "^7.0.1"
   },
   "enhancedScopes": [
     "source.go",
