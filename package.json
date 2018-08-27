@@ -1,7 +1,7 @@
 {
   "name": "ide-go-langserver",
   "main": "./lib/main",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Golang language support for Atom-IDE via go-langserver",
   "author": "Tyler Fowler",
   "scripts": {
