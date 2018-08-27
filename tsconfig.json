@@ -33,7 +33,7 @@
   },
   "include": [
     "lib/*",
-    "lib/**/*",
+    "lib/**/*"
   ],
   "exclude": [
     "lib/*.spec.ts", "lib/*.spec.js",
